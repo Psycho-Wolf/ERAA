@@ -3,7 +3,7 @@ import time
 import math
 
 def servosOn():  #turn on all servos
-	ser.write("@SRVO "+str(1)+chr(13)+chr(10)) # chr 13 & 10 are for C/R & L/F
+	ser.write("@SRVO "+str(1)+chr(13)+chr(10))
 	rec=ser.read(4)
 	print "Servo On Reponse=",rec	#can only return ok
 	return
@@ -22,8 +22,7 @@ def point(x,y,speed):
     return;
 
 def origin():
-
-    ser.write("@ORG "+chr(13)+chr(10))  #move to origin
+    ser.write("@ORG "+chr(13)+chr(10))
     rec=ser.read(4)
     print "Origin Response=",rec
     if rec[0]=="N":
@@ -53,25 +52,3 @@ def origin():
             i=i+1
         print rec
     return;
-    
-ser=serial.Serial('/dev/ttyS0')
-ser.baudrate=9600
-ser.parity=serial.PARITY_ODD
-ser.stopbits=serial.STOPBITS_ONE
-ser.bytesize=serial.EIGHTBITS
-ser.xonxoff=1
-ser.reset_input_buffer()
-ser.reset_output_buffer()
-
-servosOn()
-origin()
-
-while True:
-	point(450,300,100)
-	time.sleep(1)
-	point(300,100,20)
-	time.sleep(1)
-	point(100,100,100)
-	time.sleep(1)
-
-ser.close()
