@@ -1,11 +1,8 @@
-﻿#import serial
-#mport time
-#import math
+﻿from tkinter import *
 
-from tkinter import *
 root = Tk()
+root.title('Benny')
 
-myLabel = Label(root, text = "Hello World!")
-myLabel.pack()
+exit = Button(root, text = "Exit Program", command = root.quit).pack()
 
 root.mainloop()
