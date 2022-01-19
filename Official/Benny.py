@@ -7,8 +7,8 @@ from tkinter import *
 from TestCommands import *
 
 #ingr is an array that stores the available shots of every ingredient used for the recipes
-# the order of the indredients is as follows: vodka, gin, rum, tequila, coke, cran, lime
-# lemon, kahlua, campari, vermouth, cointreau, simple syrup, tonic, 
+# the order of the indredients is as follows: 0: vodka, 1: gin, 2: rum, 3: tequila, 4: coke, 5: cran, 6: lime
+# 7: lemon, 8: kahlua, 9: campari, 10: vermouth, 11: cointreau, 12: simple syrup, 13: tonic, 
 global ingr
 ingr = numpy.array([20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20])
 
