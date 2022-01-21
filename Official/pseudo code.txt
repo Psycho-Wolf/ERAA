@@ -1,0 +1,40 @@
+user procedure:
+
+
+CAT IS WORKING ON THIS:
+
+select table number:
+click the drink buttons
+	#list should show on left for the tables order
+	#(reocurring list)
+	#each drink tallys how many times ingredients are used
+user presses done
+list of drinks is sent to robot
+order box clears and table number clears
+if table is picked again, 
+	order should be retained 
+	user can add to it
+	user presses done to close again
+	user presses pay check to completely wipe order
+	tally up total profits for table
+if closing,
+	tally up total profit for day
+	completely wipe all table orders
+
+
+
+
+
+TONY IS WORKING ON THIS:
+
+volume level checks (retain how many shots are left in bottle after turn robot off and then on again)
+ice level level checks (same with ice)
+
+if levels drop below a certain number, 
+	have specific error display on main POS screen
+if end of day button is pressed
+	display volume left in bottles (.txt)
+if error is displayed
+	staff press resolved error
+	clear error display
+
