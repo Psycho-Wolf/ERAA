@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Legacy",
     "\\Official",
-    "\\Official\\__pycache__",
     "\\Refs"
   ],
-  "SelectedNode": "\\Refs\\FXYx.py",
+  "SelectedNode": "\\Official\\FUNCTIONS.py",
   "PreviewInSolutionExplorer": false
 }

@@ -9,9 +9,12 @@ from PIL import ImageTk, Image
 import tkMessageBox
 
 #from FXYx import *
+global profit
+profit = 0
 
 def cosmo():
     print("making cosmopolitan")
+    profit += 11
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
@@ -20,6 +23,7 @@ def cosmo():
 
 def negroni():
     print("making negroni")
+    profit += 11
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
@@ -28,6 +32,7 @@ def negroni():
 
 def russian():
     print("making black russian")
+    profit += 11
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
@@ -36,6 +41,7 @@ def russian():
 
 def liit():
     print("making long island iced tea")
+    profit += 11
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
@@ -44,6 +50,8 @@ def liit():
 
 def cuba():
     print("making cuba libre")
+    profit += 11
+
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
@@ -52,6 +60,7 @@ def cuba():
 
 def john():
     print("making john collins")
+    profit += 11
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
@@ -60,6 +69,7 @@ def john():
 
 def dry():
     print("making dry martini")
+    profit += 11
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
@@ -77,7 +87,7 @@ def settings():
         # ser.close()
         
     # tally up overall profits of day
-        
+        print("Total profits" + str(profit))
         # volumeLabel = label("vodka: ", excelfile row1 col2).pack()
     # repeat for each ingredient
         return
