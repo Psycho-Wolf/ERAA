@@ -15,6 +15,7 @@ profit = 0
 def cosmo():
     print("making cosmopolitan")
     profit += 11
+    print(profit)
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
