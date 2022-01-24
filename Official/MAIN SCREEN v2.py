@@ -23,10 +23,30 @@ def ORDER():
     text_box.delete(1.0, 'end')
     textfile = open("tab.txt","r")
     order = textfile.read()
+    global labelOrder
     labelOrder = Label(root,text = str(order))
     labelOrder.place(x=8,y=600)
     return
 
+def CheckOut():
+    var.set(5)
+    list = text_box.get('1.0','end')
+    textfile = open("tab.txt","a")
+    a = textfile.write(list)
+    textfile.close()
+    text_box.delete(1.0, 'end')
+    file = open("tab.txt","r")
+    lines = file.readlines()
+    file.close()
+    file = open("tab.txt","w")
+    for line in lines:
+        file.write(" ")
+    file.close()
+    textfile = open("tab.txt","r")
+    order = textfile.read()
+    global labelOrder
+    labelOrder.destroy()
+    
 def cosmo():
     messageCosmo ='''cosmo\n'''
     text_box.insert('end', messageCosmo)
@@ -84,6 +104,8 @@ button5 = Button(root, text="Cuba Libre",               width=20,height=4, comma
 button6 = Button(root, text="John Collins",             width=20,height=4, command=john).place(x=790,y=450)
 button7 = Button(root, text="Dry Martini",              width=20,height=4, command=dry).place(x=570,y=525)
 button8 = Button(root, text="ORDER",                    width=20,height=4, command=ORDER,bg='#00FF7F').place(x=790,y=525)
+button9 = Button(root, text="Check Out",                width=30,height=2, command=CheckOut,bg='#FF4040').place(x=640,y=600)
+
 
 # ORDER #
 labelText4 = StringVar()
