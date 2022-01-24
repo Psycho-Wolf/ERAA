@@ -1,5 +1,5 @@
             # -*- coding: cp1252 -*-
-#import serial #Dr. Isenbergs' python code to demo the FXYx robot.
+#import serial
 #import math
 import time
 from Tkinter import *
