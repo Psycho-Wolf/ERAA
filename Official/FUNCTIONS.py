@@ -9,12 +9,11 @@ from PIL import ImageTk, Image
 import tkMessageBox
 #from FXYx import *
 
-
-
 def cosmo():
     print("making cosmopolitan")
 #    messageCosmo ='''cosmo'''
 #    text_box.insert('end', messageCosmo)
+
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
