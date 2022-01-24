@@ -7,11 +7,13 @@ from Tkinter import *
 import os
 from PIL import ImageTk, Image
 import tkMessageBox
-
 #from FXYx import *
 
 def cosmo():
     print("making cosmopolitan")
+#    messageCosmo ='''cosmo'''
+#    text_box.insert('end', messageCosmo)
+
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
@@ -74,10 +76,18 @@ def settings():
 
     def turnOff():
         print("end of the day")
+        file = open("tab.txt","r")
+        lines = file.readlines()
+        file.close()
+        file = open("tab.txt","w")
+        for line in lines:
+            file.write(" ")
+        file.close()
+        
         # ser.close()
         
     # tally up overall profits of day
-        print("Total profits" + str(profit))
+        
         # volumeLabel = label("vodka: ", excelfile row1 col2).pack()
     # repeat for each ingredient
         return
