@@ -9,6 +9,11 @@ import tkMessageBox
 from FUNCTIONS import *
 #from FXYx import *
 
+global profit
+profit = 0
+price = 11
+
+
 def close():
     root.destroy()
     return
@@ -48,6 +53,7 @@ def CheckOut():
     labelOrder.destroy()
     
 def cosmo():
+
     messageCosmo ='''cosmo\n'''
     text_box.insert('end', messageCosmo)
     return
