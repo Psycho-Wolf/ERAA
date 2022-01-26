@@ -7,12 +7,14 @@ import os
 from PIL import ImageTk, Image
 import tkMessageBox
 from FUNCTIONS import *
+import pickle
 #from FXYx import *
 
 global profit
 profit = 0
 price = 11
 
+pickle = open()
 
 def close():
     root.destroy()
