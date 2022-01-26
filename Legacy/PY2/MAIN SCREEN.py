@@ -1,5 +1,5 @@
             # -*- coding: cp1252 -*-
-#import serial #Dr. Isenbergs' python code to demo the FXYx robot.
+#import serial
 #import math
 import time
 from Tkinter import *
@@ -8,6 +8,7 @@ from PIL import ImageTk, Image
 import tkMessageBox
 from FUNCTIONS import *
 #from FXYx import *
+
 
 def close():
     root.destroy()
@@ -48,7 +49,7 @@ label2 = Label(root, textvariable=labelText2, height=1).place(x=5,y=705)
 button8 = Button(root, text="Settings",              width=20, command=settings).place(x=2,y=725)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
 
-phhot = Image.open('D:\GitHUB\ERAA\Official\LogoNoBack.png' )
+phhot = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
 resize_image = phhot.resize((384,216))
 img=ImageTk.PhotoImage(resize_image)
 label = Label(root,image = img)
