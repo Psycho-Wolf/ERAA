@@ -26,6 +26,17 @@ if closing,
 
 
 TONY IS WORKING ON THIS:
+Workflow
+1. Tracking ingr vol
+- Every ingrediant shot amount tracked
+2. tracking ice level
+3. Disp to txt
+- Display itemized list of ice and ingr vol
+4. Low volume error
+- Display errors on POS
+5. Resolve error button
+- Clear displayed errors, "resets value of variables"
+6. Clear error from POS screen
 
 volume level checks (retain how many shots are left in bottle after turn robot off and then on again)
 ice level level checks (same with ice)
