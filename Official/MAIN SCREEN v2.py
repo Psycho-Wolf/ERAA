@@ -10,7 +10,12 @@ from FUNCTIONS import *
 import pickle
 #from FXYx import *
 
-global profit
+global profit, amnts
+
+fAmnt = open('ingrAmnt.p', 'rb')
+amnts = pickle.open(fAmnts)
+fAmnts.close()
+print amnts
 profit = 0
 price = 11
 

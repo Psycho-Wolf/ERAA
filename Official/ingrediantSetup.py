@@ -6,3 +6,7 @@ f = open('ingrAmnt.p', 'wb')
 pickle.dump(amnts, f, -1)
 f.close()
 
+fAmnt = open('ingrAmnt.p', 'rb')
+amnts = pickle.open(fAmnts)
+fAmnts.close()
+print amnts
