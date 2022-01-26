@@ -34,6 +34,9 @@ def ORDER():
     return
 
 def CheckOut():
+    global profit
+    print profit
+    profit = 0
     var.set(5)
     list = text_box.get('1.0','end')
     textfile = open("tab.txt","a")
@@ -53,31 +56,44 @@ def CheckOut():
     labelOrder.destroy()
     
 def cosmo():
-
+    global profit
+    profit += price
     messageCosmo ='''cosmo\n'''
     text_box.insert('end', messageCosmo)
     return
 def negroni():
+    global profit
+    profit += price
     messageNegroni ='''negroni\n'''
     text_box.insert('end', messageNegroni)
     return
 def russian():
+    global profit
+    profit += price
     messageRuss ='''black russian\n'''
     text_box.insert('end', messageRuss)
     return
 def liit():
+    global profit
+    profit += price
     messageLiit ='''long island iced tea\n'''
     text_box.insert('end', messageLiit)
     return
 def cuba():
+    global profit
+    profit += price
     messageCuba ='''cuba libre\n'''
     text_box.insert('end', messageCuba)
     return
 def john():
+    global profit
+    profit += price
     messageJohn ='''john collins\n'''
     text_box.insert('end', messageJohn)
     return
 def dry():
+    global profit
+    profit += price
     messageDry ='''dry martini\n'''
     text_box.insert('end', messageDry)
     return
@@ -133,7 +149,7 @@ button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=1
 
 
 # LOGO #
-photo = Image.open('C:\Users\cathe\OneDrive\Desktop\Python Code\LogoNoBack.PNG' )
+photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
 resize_image = photo.resize((384,216))
 img=ImageTk.PhotoImage(resize_image)
 label = Label(root,image = img)
