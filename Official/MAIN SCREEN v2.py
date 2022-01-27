@@ -81,6 +81,8 @@ def negroni(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
+    amnts[15] -= 1 # 1 full serving ice
+
     messageNegroni ='''negroni\n'''
     text_box.insert('end', messageNegroni)
     return amnts
@@ -88,6 +90,7 @@ def negroni(amnts):
 def russian(amnts):
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
+    amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageRuss ='''black russian\n'''
@@ -103,6 +106,7 @@ def liit(amnts):
     amnts[7] -= 1  # full shots coke
     amnts[9] -= 2  # half shots cointreau
     amnts[11] -= 2  # half shots syrup
+    amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
@@ -113,6 +117,7 @@ def cuba(amnts):
     amnts[2] -= 1 # full shots rum
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
+    amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
@@ -124,6 +129,7 @@ def john(amnts):
     amnts[6] -= 2  # half shots lemon
     amnts[11] -= 1 # half shots syrup
     amnts[12] -= 1 # full shots tonic
+    amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageJohn ='''john collins\n'''
@@ -133,6 +139,7 @@ def john(amnts):
 def dry(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
+    amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageDry ='''dry martini\n'''
