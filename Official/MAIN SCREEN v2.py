@@ -42,7 +42,8 @@ def ORDER():
     labelOrder.place(x=8,y=600)
     return
 
-def CheckOut():
+def CheckOut(amnts):
+    Stonks(amnts)
     global profit
     print profit   #FOR TESTING DELETE IN FINAL VERSION
     profit = 0
@@ -66,6 +67,7 @@ def CheckOut():
     return
     
 def Stonks(amnts):
+    global profit
     timestr = time.strftime("%Y%m%d-%H%M%S")
     stonks = open(timestr + '.txt', 'w')
     stonks.write("Vodka: " + str(amnts[0]) + '\n')
@@ -200,7 +202,7 @@ button5 = Button(root, text="Cuba Libre",               width=20,height=4, comma
 button6 = Button(root, text="John Collins",             width=20,height=4, command=lambda: john(amnts)).place(x=790,y=450)
 button7 = Button(root, text="Dry Martini",              width=20,height=4, command=lambda: dry(amnts)).place(x=570,y=525)
 button8 = Button(root, text="ORDER",                    width=20,height=4, command=ORDER,bg='#00FF7F').place(x=790,y=525)
-button9 = Button(root, text="Check Out",                width=30,height=2, command=CheckOut,bg='#FF4040').place(x=640,y=600)
+button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
 
 
 # ORDER #
