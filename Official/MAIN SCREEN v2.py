@@ -42,9 +42,10 @@ def ORDER():
     labelOrder.place(x=8,y=600)
     return
 
-def CheckOut():
+def CheckOut(amnts):
+    Stonks(amnts)
     global profit
-    print profit
+    print profit   #FOR TESTING DELETE IN FINAL VERSION
     profit = 0
     var.set(5)
     list = text_box.get('1.0','end')
@@ -63,7 +64,34 @@ def CheckOut():
     order = textfile.read()
     global labelOrder
     labelOrder.destroy()
+    return
     
+def Stonks(amnts):
+    global profit
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    stonks = open(timestr + '.txt', 'w')
+    stonks.write("Vodka: " + str(amnts[0]) + '\n')
+    stonks.write("Gin: " + str(amnts[1]) + '\n')
+    stonks.write("Rum: " + str(amnts[2]) + '\n')
+    stonks.write("Tequila: " + str(amnts[3]) + '\n')
+    stonks.write("Cranberry Juice: " + str(amnts[4]) + '\n')
+    stonks.write("Lime Juice: " + str(amnts[5]) + '\n')
+    stonks.write("Lemon Juice: " + str(amnts[6]) + '\n')
+    stonks.write("Coca Cola: " + str(amnts[7]) + '\n')
+    stonks.write("Campari: " + str(amnts[8]) + '\n')
+    stonks.write("Cointreau: " + str(amnts[9]) + '\n')
+    stonks.write("Grenadine: " + str(amnts[10]) + '\n')
+    stonks.write("Simple Syrup: " + str(amnts[11]) + '\n')
+    stonks.write("Tonic Water: " + str(amnts[12]) + '\n')
+    stonks.write("Dry Vermouth: " + str(amnts[13]) + '\n')
+    stonks.write("Kahlua: " + str(amnts[14]) + '\n')
+    stonks.write("Ice: " + str(amnts[15]) + '\n')
+    stonks.write("\nGross Profit: $" + str(profit))
+    stonks.close()
+    return
+
+
+
 def cosmo(amnts):
     global profit
     profit += price
@@ -174,7 +202,7 @@ button5 = Button(root, text="Cuba Libre",               width=20,height=4, comma
 button6 = Button(root, text="John Collins",             width=20,height=4, command=lambda: john(amnts)).place(x=790,y=450)
 button7 = Button(root, text="Dry Martini",              width=20,height=4, command=lambda: dry(amnts)).place(x=570,y=525)
 button8 = Button(root, text="ORDER",                    width=20,height=4, command=ORDER,bg='#00FF7F').place(x=790,y=525)
-button9 = Button(root, text="Check Out",                width=30,height=2, command=CheckOut,bg='#FF4040').place(x=640,y=600)
+button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
 
 
 # ORDER #
