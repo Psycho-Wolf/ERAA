@@ -16,10 +16,14 @@ fAmnts = open('ingrAmnt.p', 'rb')
 amnts = pickle.load(fAmnts)
 fAmnts.close()
 
+print "amounts of every: " + str(amnts)
 profit = 0
 price = 11
 
 def close():
+    f = open('ingrAmnt.p', 'wb')
+    pickle.dump(amnts, f, -1)
+    f.close()
     root.destroy()
     return
 
@@ -60,7 +64,7 @@ def CheckOut():
     global labelOrder
     labelOrder.destroy()
     
-def cosmo(amnts): # checked
+def cosmo(amnts):
     global profit
     profit += price
     amnts[0] -= 1 # full shot vodka
@@ -71,17 +75,17 @@ def cosmo(amnts): # checked
     text_box.insert('end', messageCosmo)
     return amnts
 
-def negroni(amnts): # chcked
+def negroni(amnts):
+    global profit
+    profit += price
     amnts[1] -= 1  # full shots gin
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
-    global profit
-    profit += price
     messageNegroni ='''negroni\n'''
     text_box.insert('end', messageNegroni)
     return amnts
 
-def russian(amnts): # checked
+def russian(amnts):
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
     global profit
@@ -90,7 +94,7 @@ def russian(amnts): # checked
     text_box.insert('end', messageRuss)
     return amnts
 
-def liit(amnts): # checked
+def liit(amnts):
     amnts[0] -= 1  # full shots vodka
     amnts[1] -= 1  # full shots gin
     amnts[2] -= 1  # full shots rum
@@ -105,7 +109,7 @@ def liit(amnts): # checked
     text_box.insert('end', messageLiit)
     return amnts
 
-def cuba(amnts): # checked
+def cuba(amnts):
     amnts[2] -= 1 # full shots rum
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
@@ -115,7 +119,7 @@ def cuba(amnts): # checked
     text_box.insert('end', messageCuba)
     return amnts
 
-def john(amnts): # checked
+def john(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[6] -= 2  # half shots lemon
     amnts[11] -= 1 # half shots syrup
@@ -126,7 +130,7 @@ def john(amnts): # checked
     text_box.insert('end', messageJohn)
     return amnts
 
-def dry(amnts): # checked
+def dry(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
     global profit
