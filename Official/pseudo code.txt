@@ -29,6 +29,9 @@ TONY IS WORKING ON THIS:
 Workflow
 1. Tracking ingr vol
 - Every ingrediant shot amount tracked
+- tracks across executes
+- recipes programmed in
+
 2. tracking ice level
 3. Disp to txt
 - Display itemized list of ice and ingr vol
