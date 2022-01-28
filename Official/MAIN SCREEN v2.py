@@ -28,18 +28,39 @@ def close():
     return
 
 def ORDER():
-    var.set(5)
-    list = text_box.get('1.0','end')
-    textfile = open("tab.txt","a")
-
-    a = textfile.write(list)
-    textfile.close()
-    text_box.delete(1.0, 'end')
-    textfile = open("tab.txt","r")
-    order = textfile.read()
     global labelOrder
-    labelOrder = Label(root,text = str(order))
-    labelOrder.place(x=8,y=600)
+    table = var.get()
+    list = text.get('1.0','end')
+    if table == 1:
+        textfile = open("tab1.txt","a")
+        a = textfile.write(list)
+        text.delete("1.0","end")
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 2:
+        textfile = open("tab2.txt","a")
+        a = textfile.write(list)
+        text.delete("1.0","end")
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 3:
+        textfile = open("tab3.txt","a")
+        a = textfile.write(list)
+        text.delete("1.0","end")
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 4:
+        textfile = open("tab4.txt","a")
+        a = textfile.write(list)
+        text.delete("1.0","end")
+        labelOrder.destroy()
+        var.set(5)
+    else:
+        textfile = open("tabNA.txt","a")
+        a = textfile.write(list)
+        text.delete("1.0","end")
+        labelOrder.destroy()
+        var.set(5)
     return
 
 def CheckOut(amnts):
@@ -63,8 +84,94 @@ def CheckOut(amnts):
     textfile = open("tab.txt","r")
     order = textfile.read()
     global labelOrder
-    labelOrder.destroy()
+    table = var.get()
+    if table == 1:
+        textfile = open("tab1.txt", "r")
+        lines = textfile.readlines()
+        textfile.close()
+        textfile = open("tab1.txt", "w")
+        for line in lines:
+            textfile.write("")
+        textfile.close()
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 2:
+        textfile = open("tab2.txt", "r")
+        lines = textfile.readlines()
+        textfile.close()
+        textfile = open("tab2.txt", "w")
+        for line in lines:
+            textfile.write("")
+        textfile.close()
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 3:
+        textfile = open("tab3.txt", "r")
+        lines = textfile.readlines()
+        textfile.close()
+        textfile = open("tab3.txt", "w")
+        for line in lines:
+            textfile.write("")
+        textfile.close()
+        labelOrder.destroy()
+        var.set(5)
+    elif table == 4:
+        textfile = open("tab4.txt", "r")
+        lines = textfile.readlines()
+        textfile.close()
+        textfile = open("tab4.txt", "w")
+        for line in lines:
+            textfile.write("")
+        textfile.close()
+        labelOrder.destroy()
+    else:
+        textfile = open("tabNA.txt", "r")
+        lines = textfile.readlines()
+        textfile.close()
+        textfile = open("tabNA.txt", "w")
+        for line in lines:
+            textfile.write("")
+        textfile.close()
+        labelOrder.destroy()
+        var.set(5)
     return
+
+def TableOrder():
+    global labelOrder
+    table = var.get()
+    labelOrder.destroy()
+    if table == 1:
+        textfile = open("tab1.txt","r")
+        order = textfile.read()
+        labelOrder = Label(root,text = str(order))
+        labelOrder.place(x=1200,y=400)
+        var.set(5)
+    elif table == 2:
+        textfile = open("tab2.txt","r")
+        order = textfile.read()
+        labelOrder = Label(root,text = str(order))
+        labelOrder.place(x=1200,y=400)
+        var.set(5)
+    elif table == 3:
+        textfile = open("tab3.txt","r")
+        order = textfile.read()
+        labelOrder = Label(root,text = str(order))
+        labelOrder.place(x=1200,y=400)
+        var.set(5)
+    elif table == 4:
+        textfile = open("tab4.txt","r")
+        order = textfile.read()
+        labelOrder = Label(root,text = str(order))
+        labelOrder.place(x=1200,y=400)
+        var.set(5)
+    else:
+        textfile = open("tabNA.txt","r")
+        order = textfile.read()
+        labelOrder = Label(root,text = str(order))
+        labelOrder.place(x=1200,y=400)
+        var.set(5)
+    return
+
     
 def Stonks(amnts):
     global profit
@@ -199,15 +306,17 @@ labelText3 = StringVar()
 labelText3.set('''Welcome to Embry-Riddles Autonous Automaton''')
 label3 = Label(root, textvariable=labelText3, height=4,width=45,bg='#CDC8B1',font=('Arial',16,'bold')).place(x=460,y=100)
 
+labelOrder = Label(root,text=" ")
+
 
 # TABLES #
 var=IntVar()
-var.set(None)
-rb1 = Radiobutton(root, text="table 1", value=1,tristatevalue=0,variable=var).place(x=620,y=220)
-rb2 = Radiobutton(root, text="table 2", value=2,tristatevalue=0,variable=var).place(x=620,y=250)
-rb3 = Radiobutton(root, text="table 3", value=3,tristatevalue=0,variable=var).place(x=830,y=220)
-rb4 = Radiobutton(root, text="table 4", value=4,tristatevalue=0,variable=var).place(x=830,y=250)
-rb5 = Radiobutton(root, text="NA",      value=5,tristatevalue=0,variable=var).place(x=740,y=250)
+var.set(5)
+rb1 = Radiobutton(root, text="table 1", value=1,tristatevalue=0,variable=var,relief=RIDGE,bg='#F4A460').place(x=620,y=220)
+rb2 = Radiobutton(root, text="table 2", value=2,tristatevalue=0,variable=var,relief=RIDGE,bg='#F4A460').place(x=620,y=250)
+rb3 = Radiobutton(root, text="table 3", value=3,tristatevalue=0,variable=var,relief=RIDGE,bg='#F4A460').place(x=830,y=220)
+rb4 = Radiobutton(root, text="table 4", value=4,tristatevalue=0,variable=var,relief=RIDGE,bg='#F4A460').place(x=830,y=250)
+rb5 = Radiobutton(root, text="NA",      value=5,tristatevalue=0,variable=var,relief=RIDGE).place(x=740,y=650)
 
 # MENU #
 button1 = Button(root, text="Cosmopolitan",             width=20,height=4, command=lambda: cosmo(amnts)).place(x=570,y=300)
@@ -219,6 +328,8 @@ button6 = Button(root, text="John Collins",             width=20,height=4, comma
 button7 = Button(root, text="Dry Martini",              width=20,height=4, command=lambda: dry(amnts)).place(x=570,y=525)
 button8 = Button(root, text="ORDER",                    width=20,height=4, command=ORDER,bg='#00FF7F').place(x=790,y=525)
 button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
+button10 = Button(root, text="Table Order",             width=30,height=2, command=TableOrder).place(x=640,y=650)
+
 
 
 # ORDER #
@@ -226,10 +337,10 @@ labelText4 = StringVar()
 labelText4.set('''Order:''')
 label4 = Label(root, textvariable=labelText4, height=1,width=6,font=('Arial',16,'bold')).place(x=8,y=250)
 message =''''''
-text_box = Text(root,height=8,width=28,font=('Arial',16,'bold'))
-text_box.pack(expand=True)
-text_box.insert('end', message)
-text_box.place(x=8,y=280)
+text = Text(root,height=8,width=28,font=('Arial',16,'bold'))
+text.pack(expand=True)
+text.insert('end', message)
+text.place(x=8,y=280)
 
 
 # SETTINGS #
