@@ -7,9 +7,23 @@ import os
 from PIL import ImageTk, Image
 import tkMessageBox
 from FUNCTIONS import *
+import pickle
 #from FXYx import *
 
+global profit, amnts
+
+fAmnts = open('ingrAmnt.p', 'rb')
+amnts = pickle.load(fAmnts)
+fAmnts.close()
+
+print "amounts of every: " + str(amnts)
+profit = 0
+price = 11
+
 def close():
+    f = open('ingrAmnt.p', 'wb')
+    pickle.dump(amnts, f, -1)
+    f.close()
     root.destroy()
     return
 
@@ -49,7 +63,26 @@ def ORDER():
         var.set(5)
     return
 
-def CheckOut():
+def CheckOut(amnts):
+    Stonks(amnts)
+    global profit
+    print profit   #FOR TESTING DELETE IN FINAL VERSION
+    profit = 0
+    var.set(5)
+    list = text_box.get('1.0','end')
+    textfile = open("tab.txt","a")
+    a = textfile.write(list)
+    textfile.close()
+    text_box.delete(1.0, 'end')
+    file = open("tab.txt","r")
+    lines = file.readlines()
+    file.close()
+    file = open("tab.txt","w")
+    for line in lines:
+        file.write(" ")
+    file.close()
+    textfile = open("tab.txt","r")
+    order = textfile.read()
     global labelOrder
     table = var.get()
     if table == 1:
@@ -139,36 +172,114 @@ def TableOrder():
         var.set(5)
     return
 
-
     
-def cosmo():
+def Stonks(amnts):
+    global profit
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    stonks = open(timestr + '.txt', 'w')
+    stonks.write("Vodka: " + str(amnts[0]) + '\n')
+    stonks.write("Gin: " + str(amnts[1]) + '\n')
+    stonks.write("Rum: " + str(amnts[2]) + '\n')
+    stonks.write("Tequila: " + str(amnts[3]) + '\n')
+    stonks.write("Cranberry Juice: " + str(amnts[4]) + '\n')
+    stonks.write("Lime Juice: " + str(amnts[5]) + '\n')
+    stonks.write("Lemon Juice: " + str(amnts[6]) + '\n')
+    stonks.write("Coca Cola: " + str(amnts[7]) + '\n')
+    stonks.write("Campari: " + str(amnts[8]) + '\n')
+    stonks.write("Cointreau: " + str(amnts[9]) + '\n')
+    stonks.write("Grenadine: " + str(amnts[10]) + '\n')
+    stonks.write("Simple Syrup: " + str(amnts[11]) + '\n')
+    stonks.write("Tonic Water: " + str(amnts[12]) + '\n')
+    stonks.write("Dry Vermouth: " + str(amnts[13]) + '\n')
+    stonks.write("Kahlua: " + str(amnts[14]) + '\n')
+    stonks.write("Ice: " + str(amnts[15]) + '\n')
+    stonks.write("\nGross Profit: $" + str(profit))
+    stonks.close()
+    return
+
+
+
+def cosmo(amnts):
+    global profit
+    profit += price
+    amnts[0] -= 1 # full shot vodka
+    amnts[4] -= 2 # half shots cran
+    amnts[5] -= 1 # half shot lime
+    amnts[9] -= 1 # half shot cointreau
     messageCosmo ='''cosmo\n'''
     text_box.insert('end', messageCosmo)
-    return
-def negroni():
+    return amnts
+
+def negroni(amnts):
+    global profit
+    profit += price
+    amnts[1] -= 1  # full shots gin
+    amnts[8] -= 1  # full shots campari
+    amnts[13] -= 2 # half shots vermouth
+    amnts[15] -= 1 # 1 full serving ice
+
     messageNegroni ='''negroni\n'''
     text_box.insert('end', messageNegroni)
-    return
-def russian():
+    return amnts
+
+def russian(amnts):
+    amnts[0] -= 1  # full shots vodka
+    amnts[14] -= 1 # half shots kahlua
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
     messageRuss ='''black russian\n'''
     text_box.insert('end', messageRuss)
-    return
-def liit():
+    return amnts
+
+def liit(amnts):
+    amnts[0] -= 1  # full shots vodka
+    amnts[1] -= 1  # full shots gin
+    amnts[2] -= 1  # full shots rum
+    amnts[3] -= 1  # full shots tequila
+    amnts[6] -= 4  # half shots lemon
+    amnts[7] -= 1  # full shots coke
+    amnts[9] -= 2  # half shots cointreau
+    amnts[11] -= 2  # half shots syrup
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
     messageLiit ='''long island iced tea\n'''
     text_box.insert('end', messageLiit)
-    return
-def cuba():
+    return amnts
+
+def cuba(amnts):
+    amnts[2] -= 1 # full shots rum
+    amnts[5] -= 1 # half shots lime
+    amnts[7] -= 3 # full shots coke
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
     messageCuba ='''cuba libre\n'''
     text_box.insert('end', messageCuba)
-    return
-def john():
+    return amnts
+
+def john(amnts):
+    amnts[1] -= 1  # full shots gin
+    amnts[6] -= 2  # half shots lemon
+    amnts[11] -= 1 # half shots syrup
+    amnts[12] -= 1 # full shots tonic
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
     messageJohn ='''john collins\n'''
     text_box.insert('end', messageJohn)
-    return
-def dry():
+    return amnts
+
+def dry(amnts):
+    amnts[1] -= 1  # full shots gin
+    amnts[13] -= 1 # half shot vermouth
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
     messageDry ='''dry martini\n'''
     text_box.insert('end', messageDry)
-    return
+    return amnts
 
 # MAIN SCREEN #
 root = Tk()
@@ -192,16 +303,17 @@ rb4 = Radiobutton(root, text="table 4", value=4,tristatevalue=0,variable=var,rel
 rb5 = Radiobutton(root, text="NA",      value=5,tristatevalue=0,variable=var,relief=RIDGE).place(x=740,y=650)
 
 # MENU #
-button1 = Button(root, text="Cosmopolitan",             width=20,height=4, command=cosmo).place(x=570,y=300)
-button2 = Button(root, text="Negroni",                  width=20,height=4, command=negroni).place(x=570,y=375)
-button3 = Button(root, text="Black Russian",            width=20,height=4, command=russian).place(x=570,y=450)
-button4 = Button(root, text="Long Island Iced Tea",     width=20,height=4, command=liit).place(x=790,y=300)
-button5 = Button(root, text="Cuba Libre",               width=20,height=4, command=cuba).place(x=790,y=375)
-button6 = Button(root, text="John Collins",             width=20,height=4, command=john).place(x=790,y=450)
-button7 = Button(root, text="Dry Martini",              width=20,height=4, command=dry).place(x=570,y=525)
+button1 = Button(root, text="Cosmopolitan",             width=20,height=4, command=lambda: cosmo(amnts)).place(x=570,y=300)
+button2 = Button(root, text="Negroni",                  width=20,height=4, command=lambda: negroni(amnts)).place(x=570,y=375)
+button3 = Button(root, text="Black Russian",            width=20,height=4, command=lambda: russian(amnts)).place(x=570,y=450)
+button4 = Button(root, text="Long Island Iced Tea",     width=20,height=4, command=lambda: liit(amnts)).place(x=790,y=300)
+button5 = Button(root, text="Cuba Libre",               width=20,height=4, command=lambda: cuba(amnts)).place(x=790,y=375)
+button6 = Button(root, text="John Collins",             width=20,height=4, command=lambda: john(amnts)).place(x=790,y=450)
+button7 = Button(root, text="Dry Martini",              width=20,height=4, command=lambda: dry(amnts)).place(x=570,y=525)
 button8 = Button(root, text="ORDER",                    width=20,height=4, command=ORDER,bg='#00FF7F').place(x=790,y=525)
-button9 = Button(root, text="Check Out",                width=30,height=2, command=CheckOut,bg='#FF4040').place(x=640,y=600)
+button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
 button10 = Button(root, text="Table Order",             width=30,height=2, command=TableOrder).place(x=640,y=650)
+
 
 
 # ORDER #
@@ -224,7 +336,7 @@ button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=1
 
 
 # LOGO #
-photo = Image.open('C:\Users\cathe\OneDrive\Desktop\Python Code\LogoNoBack.PNG' )
+photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
 resize_image = photo.resize((384,216))
 img=ImageTk.PhotoImage(resize_image)
 label = Label(root,image = img)
