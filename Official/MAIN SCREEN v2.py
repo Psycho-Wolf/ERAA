@@ -171,7 +171,6 @@ def TableOrder():
         labelOrder.place(x=1200,y=400)
         var.set(5)
     return
-
     
 def Stonks(amnts):
     global profit
@@ -197,6 +196,10 @@ def Stonks(amnts):
     stonks.close()
     return
 
+def ErrorDisp(index,amnts):
+
+    return
+
 def VolCheck(amnts):
     flag = 0
     for idx, val in enumerate(amnts):
@@ -208,104 +211,101 @@ def VolCheck(amnts):
         else:
             return False
 
-
 def cosmo(amnts):
-    if VolCheck(amnts) == True:
-        global profit
-        profit += price
-        amnts[0] -= 1 # full shot vodka
-        amnts[4] -= 2 # half shots cran
-        amnts[5] -= 1 # half shot lime
-        amnts[9] -= 1 # half shot cointreau
-        messageCosmo ='''cosmo\n'''
-        text_box.insert('end', messageCosmo)
-    return amnts
+    VolCheck(amnts)
+    global profit
+    profit += price
+    amnts[0] -= 1 # full shot vodka
+    amnts[4] -= 2 # half shots cran
+    amnts[5] -= 1 # half shot lime
+    amnts[9] -= 1 # half shot cointreau
+    messageCosmo ='''cosmo\n'''
+    text_box.insert('end', messageCosmo)
+    return
 
 def negroni(amnts):
-    if VolCheck(amnts) == True:
-        global profit
-        profit += price
-        amnts[1] -= 1  # full shots gin
-        amnts[8] -= 1  # full shots campari
-        amnts[13] -= 2 # half shots vermouth
-        amnts[15] -= 1 # 1 full serving ice
-        messageNegroni ='''negroni\n'''
-        text_box.insert('end', messageNegroni)
-    return amnts
+    VolCheck(amnts)
+    global profit
+    profit += price
+    amnts[1] -= 1  # full shots gin
+    amnts[8] -= 1  # full shots campari
+    amnts[13] -= 2 # half shots vermouth
+    amnts[15] -= 1 # 1 full serving ice
+    messageNegroni ='''negroni\n'''
+    text_box.insert('end', messageNegroni)
+    return
 
 def russian(amnts):
-    if VolCheck(amnts) == True:
-        amnts[0] -= 1  # full shots vodka
-        amnts[14] -= 1 # half shots kahlua
-        amnts[15] -= 1 # 1 full serving ice
-        global profit
-        profit += price
-        messageRuss ='''black russian\n'''
-        text_box.insert('end', messageRuss)
-    return amnts
+    VolCheck(amnts)
+    amnts[0] -= 1  # full shots vodka
+    amnts[14] -= 1 # half shots kahlua
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
+    messageRuss ='''black russian\n'''
+    text_box.insert('end', messageRuss)
+    return
 
 def liit(amnts):
-    if VolCheck(amnts) == True:
-        amnts[0] -= 1  # full shots vodka
-        amnts[1] -= 1  # full shots gin
-        amnts[2] -= 1  # full shots rum
-        amnts[3] -= 1  # full shots tequila
-        amnts[6] -= 4  # half shots lemon
-        amnts[7] -= 1  # full shots coke
-        amnts[9] -= 2  # half shots cointreau
-        amnts[11] -= 2  # half shots syrup
-        amnts[15] -= 1 # 1 full serving ice
-        global profit
-        profit += price
-        messageLiit ='''long island iced tea\n'''
-        text_box.insert('end', messageLiit)
-    return amnts
+    VolCheck(amnts)
+    amnts[0] -= 1  # full shots vodka
+    amnts[1] -= 1  # full shots gin
+    amnts[2] -= 1  # full shots rum
+    amnts[3] -= 1  # full shots tequila
+    amnts[6] -= 4  # half shots lemon
+    amnts[7] -= 1  # full shots coke
+    amnts[9] -= 2  # half shots cointreau
+    amnts[11] -= 2  # half shots syrup
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
+    messageLiit ='''long island iced tea\n'''
+    text_box.insert('end', messageLiit)
+    return
 
 def cuba(amnts):
-    if VolCheck(amnts) == True:
-        amnts[2] -= 1 # full shots rum
-        amnts[5] -= 1 # half shots lime
-        amnts[7] -= 3 # full shots coke
-        amnts[15] -= 1 # 1 full serving ice
-        global profit
-        profit += price
-        messageCuba ='''cuba libre\n'''
-        text_box.insert('end', messageCuba)
-    return amnts
+    VolCheck(amnts)
+    amnts[2] -= 1 # full shots rum
+    amnts[5] -= 1 # half shots lime
+    amnts[7] -= 3 # full shots coke
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
+    messageCuba ='''cuba libre\n'''
+    text_box.insert('end', messageCuba)
+    return
 
 def john(amnts):
-    if VolCheck(amnts) == True:
-        amnts[1] -= 1  # full shots gin
-        amnts[6] -= 2  # half shots lemon
-        amnts[11] -= 1 # half shots syrup
-        amnts[12] -= 1 # full shots tonic
-        amnts[15] -= 1 # 1 full serving ice
-        global profit
-        profit += price
-        messageJohn ='''john collins\n'''
-        text_box.insert('end', messageJohn)
-    return amnts
+    VolCheck(amnts)
+    amnts[1] -= 1  # full shots gin
+    amnts[6] -= 2  # half shots lemon
+    amnts[11] -= 1 # half shots syrup
+    amnts[12] -= 1 # full shots tonic
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
+    messageJohn ='''john collins\n'''
+    text_box.insert('end', messageJohn)
+    return
 
 def dry(amnts):
-    if VolCheck(amnts) == True:
-        amnts[1] -= 1  # full shots gin
-        amnts[13] -= 1 # half shot vermouth
-        amnts[15] -= 1 # 1 full serving ice
-        global profit
-        profit += price
-        messageDry ='''dry martini\n'''
-        text_box.insert('end', messageDry)
-    return amnts
+    VolCheck(amnts)
+    amnts[1] -= 1  # full shots gin
+    amnts[13] -= 1 # half shot vermouth
+    amnts[15] -= 1 # 1 full serving ice
+    global profit
+    profit += price
+    messageDry ='''dry martini\n'''
+    text_box.insert('end', messageDry)
+    return
 
 # MAIN SCREEN #
 root = Tk()
 root.title("Lets Roll")
 root.attributes("-fullscreen",True)
-
 labelText3 = StringVar()
 labelText3.set('''Welcome to Embry-Riddles Autonous Automaton''')
 label3 = Label(root, textvariable=labelText3, height=4,width=45,bg='#CDC8B1',font=('Arial',16,'bold')).place(x=460,y=100)
-
 labelOrder = Label(root,text=" ")
 
 
@@ -330,8 +330,6 @@ button8 = Button(root, text="ORDER",                    width=20,height=4, comma
 button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
 button10 = Button(root, text="Table Order",             width=30,height=2, command=TableOrder).place(x=640,y=650)
 
-
-
 # ORDER #
 labelText4 = StringVar()
 labelText4.set('''Order:''')
@@ -342,14 +340,12 @@ text.pack(expand=True)
 text.insert('end', message)
 text.place(x=8,y=280)
 
-
 # SETTINGS #
 labelText2 = StringVar()
 labelText2.set("Staff Only:")
 label2 = Label(root, textvariable=labelText2, height=1).place(x=5,y=705)
 button8 = Button(root, text="Settings",              width=20, command=settings).place(x=2,y=725)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
-
 
 # LOGO #
 photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
