@@ -10,14 +10,17 @@ from FUNCTIONS import *
 import pickle
 #from FXYx import *
 
+# Profits stores the gross profit of all drinks ordered
+# amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
 
+# opens the ingredients binary file and stores the values to the amnts array
 fAmnts = open('ingrAmnt.p', 'rb')
 amnts = pickle.load(fAmnts)
 fAmnts.close()
 
 print "amounts of every: " + str(amnts)
-profit = 0
+profit = 0 # ensures starting profit for the run is set to 
 price = 11
 
 def close():
@@ -197,20 +200,26 @@ def Stonks(amnts):
     return
 
 def ErrorDisp(index,amnts):
-
+    
     return
 
+# This function takes the amnts array as input and uses it to determine if any of the ingredient
+# are low in volume (definied as having 2 or less units of ingredient)
+# if there are any low ingredients the error display function is called with the indicies of each 
+# drink in the amnts array being passed to it 
 def VolCheck(amnts):
+    index = [] # Initializes an empty index array to be filled every time function is called
     flag = 0
     for idx, val in enumerate(amnts):
         if val <= 2:
             print 'item num: ' + str(idx) + ', ' + str(val) # CHANGE TO DISPLAY IN ERROR SECTION
-            flag = flag + 1
-        if flag <= 0:
-            return True
-        else:
-            return False
+            index.append(idx)
+            flag += 1
+    if flag > 0:
+        ErrorDisp(index)
 
+
+# Button called function for the Cosmopolitan
 def cosmo(amnts):
     VolCheck(amnts)
     global profit
@@ -223,6 +232,7 @@ def cosmo(amnts):
     text_box.insert('end', messageCosmo)
     return
 
+# Button called function for the Negroni
 def negroni(amnts):
     VolCheck(amnts)
     global profit
@@ -235,6 +245,7 @@ def negroni(amnts):
     text_box.insert('end', messageNegroni)
     return
 
+# Button called function for the Black Russian
 def russian(amnts):
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
@@ -246,6 +257,7 @@ def russian(amnts):
     text_box.insert('end', messageRuss)
     return
 
+# Button called function for the Long Island Iced Tea
 def liit(amnts):
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
@@ -263,6 +275,7 @@ def liit(amnts):
     text_box.insert('end', messageLiit)
     return
 
+# Button called function for the Cuba Libre
 def cuba(amnts):
     VolCheck(amnts)
     amnts[2] -= 1 # full shots rum
@@ -275,6 +288,7 @@ def cuba(amnts):
     text_box.insert('end', messageCuba)
     return
 
+# Button called function for the John Collins
 def john(amnts):
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
@@ -288,6 +302,7 @@ def john(amnts):
     text_box.insert('end', messageJohn)
     return
 
+# Button called function for the Dry Vermouth
 def dry(amnts):
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
