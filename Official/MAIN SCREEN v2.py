@@ -10,14 +10,20 @@ from FUNCTIONS import *
 import pickle
 #from FXYx import *
 
+# Profits stores the gross profit of all drinks ordered
+# amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
+global drinkNames
+drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
+amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
 
+# opens the ingredients binary file and stores the values to the amnts array
 fAmnts = open('ingrAmnt.p', 'rb')
 amnts = pickle.load(fAmnts)
 fAmnts.close()
 
 print "amounts of every: " + str(amnts)
-profit = 0
+profit = 0 # ensures starting profit for the run is set to 
 price = 11
 
 def close():
@@ -171,7 +177,6 @@ def TableOrder():
         labelOrder.place(x=1200,y=400)
         var.set(5)
     return
-
     
 def Stonks(amnts):
     global profit
@@ -197,9 +202,41 @@ def Stonks(amnts):
     stonks.close()
     return
 
+def errChk(index, amnts):
+    global drinkNames
+    drinkList = ""
+    for i in index:
+        drinkList+= str(drinkNames[i]) + '\n'
+    ErrMsg = 'The following ingredients need to be replaced:\n\n%s\n\nBottles Replaced?'%(drinkList)
+    Msg = tkMessageBox.askquestion(title= 'Test titel', message = ErrMsg)
+    if Msg == 'no':
+        errChk(index, amnts)
+    else:
+        for pos in index:
+            amnts[pos] = 20
+#    for pos in index:
+#        print 'amount: ' + str(amnts[pos])
+    return
+
+# This function takes the amnts array as input and uses it to determine if any of the ingredient
+# are low in volume (definied as having 2 or less units of ingredient)
+# if there are any low ingredients the error display function is called with the indicies of each 
+# drink in the amnts array being passed to it 
+def VolCheck(amnts):
+    index = [] # Initializes an empty index array to be filled every time function is called
+    flag = 0
+    for idx, val in enumerate(amnts):
+        if val <= 2:
+#            print 'item num: ' + str(idx) + ', ' + str(val) # CHANGE TO DISPLAY IN ERROR SECTION
+            index.append(idx)
+            flag += 1
+    if flag > 0:
+        errChk(index, amnts)
 
 
+# Button called function for the Cosmopolitan
 def cosmo(amnts):
+    VolCheck(amnts)
     global profit
     profit += price
     amnts[0] -= 1 # full shot vodka
@@ -207,32 +244,37 @@ def cosmo(amnts):
     amnts[5] -= 1 # half shot lime
     amnts[9] -= 1 # half shot cointreau
     messageCosmo ='''cosmo\n'''
-    text_box.insert('end', messageCosmo)
-    return amnts
+    text.insert('end', messageCosmo)
+    return
 
+# Button called function for the Negroni
 def negroni(amnts):
+    VolCheck(amnts)
     global profit
     profit += price
     amnts[1] -= 1  # full shots gin
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
     amnts[15] -= 1 # 1 full serving ice
-
     messageNegroni ='''negroni\n'''
-    text_box.insert('end', messageNegroni)
-    return amnts
+    text.insert('end', messageNegroni)
+    return
 
+# Button called function for the Black Russian
 def russian(amnts):
+    VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
     amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageRuss ='''black russian\n'''
-    text_box.insert('end', messageRuss)
-    return amnts
+    text.insert('end', messageRuss)
+    return
 
+# Button called function for the Long Island Iced Tea
 def liit(amnts):
+    VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[1] -= 1  # full shots gin
     amnts[2] -= 1  # full shots rum
@@ -245,10 +287,12 @@ def liit(amnts):
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
-    text_box.insert('end', messageLiit)
-    return amnts
+    text.insert('end', messageLiit)
+    return
 
+# Button called function for the Cuba Libre
 def cuba(amnts):
+    VolCheck(amnts)
     amnts[2] -= 1 # full shots rum
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
@@ -256,10 +300,12 @@ def cuba(amnts):
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
-    text_box.insert('end', messageCuba)
-    return amnts
+    text.insert('end', messageCuba)
+    return
 
+# Button called function for the John Collins
 def john(amnts):
+    VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[6] -= 2  # half shots lemon
     amnts[11] -= 1 # half shots syrup
@@ -268,28 +314,28 @@ def john(amnts):
     global profit
     profit += price
     messageJohn ='''john collins\n'''
-    text_box.insert('end', messageJohn)
-    return amnts
+    text.insert('end', messageJohn)
+    return
 
+# Button called function for the Dry Vermouth
 def dry(amnts):
+    VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
     amnts[15] -= 1 # 1 full serving ice
     global profit
     profit += price
     messageDry ='''dry martini\n'''
-    text_box.insert('end', messageDry)
-    return amnts
+    text.insert('end', messageDry)
+    return
 
 # MAIN SCREEN #
 root = Tk()
 root.title("Lets Roll")
 root.attributes("-fullscreen",True)
-
 labelText3 = StringVar()
 labelText3.set('''Welcome to Embry-Riddles Autonous Automaton''')
 label3 = Label(root, textvariable=labelText3, height=4,width=45,bg='#CDC8B1',font=('Arial',16,'bold')).place(x=460,y=100)
-
 labelOrder = Label(root,text=" ")
 
 
@@ -314,8 +360,6 @@ button8 = Button(root, text="ORDER",                    width=20,height=4, comma
 button9 = Button(root, text="Check Out",                width=30,height=2, command=lambda: CheckOut(amnts),bg='#FF4040').place(x=640,y=600)
 button10 = Button(root, text="Table Order",             width=30,height=2, command=TableOrder).place(x=640,y=650)
 
-
-
 # ORDER #
 labelText4 = StringVar()
 labelText4.set('''Order:''')
@@ -326,14 +370,12 @@ text.pack(expand=True)
 text.insert('end', message)
 text.place(x=8,y=280)
 
-
 # SETTINGS #
 labelText2 = StringVar()
 labelText2.set("Staff Only:")
 label2 = Label(root, textvariable=labelText2, height=1).place(x=5,y=705)
 button8 = Button(root, text="Settings",              width=20, command=settings).place(x=2,y=725)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
-
 
 # LOGO #
 photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
