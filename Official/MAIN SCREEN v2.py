@@ -13,6 +13,9 @@ import pickle
 # Profits stores the gross profit of all drinks ordered
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
+global drinkNames
+drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
+amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
 
 # opens the ingredients binary file and stores the values to the amnts array
 fAmnts = open('ingrAmnt.p', 'rb')
@@ -199,8 +202,20 @@ def Stonks(amnts):
     stonks.close()
     return
 
-def ErrorDisp(index,amnts):
-    
+def errChk(index, amnts):
+    global drinkNames
+    drinkList = ""
+    for i in index:
+        drinkList+= str(drinkNames[i]) + '\n'
+    ErrMsg = 'The following ingredients need to be replaced:\n\n%s\n\nBottles Replaced?'%(drinkList)
+    Msg = tkMessageBox.askquestion(title= 'Test titel', message = ErrMsg)
+    if Msg == 'no':
+        errChk(index, amnts)
+    else:
+        for pos in index:
+            amnts[pos] = 20
+#    for pos in index:
+#        print 'amount: ' + str(amnts[pos])
     return
 
 # This function takes the amnts array as input and uses it to determine if any of the ingredient
@@ -212,11 +227,11 @@ def VolCheck(amnts):
     flag = 0
     for idx, val in enumerate(amnts):
         if val <= 2:
-            print 'item num: ' + str(idx) + ', ' + str(val) # CHANGE TO DISPLAY IN ERROR SECTION
+#            print 'item num: ' + str(idx) + ', ' + str(val) # CHANGE TO DISPLAY IN ERROR SECTION
             index.append(idx)
             flag += 1
     if flag > 0:
-        ErrorDisp(index)
+        errChk(index, amnts)
 
 
 # Button called function for the Cosmopolitan
@@ -229,7 +244,7 @@ def cosmo(amnts):
     amnts[5] -= 1 # half shot lime
     amnts[9] -= 1 # half shot cointreau
     messageCosmo ='''cosmo\n'''
-    text_box.insert('end', messageCosmo)
+    text.insert('end', messageCosmo)
     return
 
 # Button called function for the Negroni
@@ -242,7 +257,7 @@ def negroni(amnts):
     amnts[13] -= 2 # half shots vermouth
     amnts[15] -= 1 # 1 full serving ice
     messageNegroni ='''negroni\n'''
-    text_box.insert('end', messageNegroni)
+    text.insert('end', messageNegroni)
     return
 
 # Button called function for the Black Russian
@@ -254,7 +269,7 @@ def russian(amnts):
     global profit
     profit += price
     messageRuss ='''black russian\n'''
-    text_box.insert('end', messageRuss)
+    text.insert('end', messageRuss)
     return
 
 # Button called function for the Long Island Iced Tea
@@ -272,7 +287,7 @@ def liit(amnts):
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
-    text_box.insert('end', messageLiit)
+    text.insert('end', messageLiit)
     return
 
 # Button called function for the Cuba Libre
@@ -285,7 +300,7 @@ def cuba(amnts):
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
-    text_box.insert('end', messageCuba)
+    text.insert('end', messageCuba)
     return
 
 # Button called function for the John Collins
@@ -299,7 +314,7 @@ def john(amnts):
     global profit
     profit += price
     messageJohn ='''john collins\n'''
-    text_box.insert('end', messageJohn)
+    text.insert('end', messageJohn)
     return
 
 # Button called function for the Dry Vermouth
@@ -311,7 +326,7 @@ def dry(amnts):
     global profit
     profit += price
     messageDry ='''dry martini\n'''
-    text_box.insert('end', messageDry)
+    text.insert('end', messageDry)
     return
 
 # MAIN SCREEN #
