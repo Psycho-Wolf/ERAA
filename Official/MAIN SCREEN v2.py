@@ -14,6 +14,8 @@ import pickle
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
 global drinkNames
+global NumOfDrinks
+NumOfDrinks = 0
 drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
 amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
 
@@ -35,35 +37,42 @@ def close():
 
 def ORDER():
     global labelOrder
+    global NumOfDrinks
+    Stonks = NumOfDrinks*11
     table = var.get()
     list = text.get('1.0','end')
     if table == 1:
         textfile = open("tab1.txt","a")
         a = textfile.write(list)
+        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
     elif table == 2:
         textfile = open("tab2.txt","a")
         a = textfile.write(list)
+        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
     elif table == 3:
         textfile = open("tab3.txt","a")
         a = textfile.write(list)
+        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
     elif table == 4:
         textfile = open("tab4.txt","a")
         a = textfile.write(list)
+        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
     else:
         textfile = open("tabNA.txt","a")
         a = textfile.write(list)
+        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
@@ -243,6 +252,8 @@ def cosmo(amnts):
     amnts[4] -= 2 # half shots cran
     amnts[5] -= 1 # half shot lime
     amnts[9] -= 1 # half shot cointreau
+    global NumOfDrinks
+    NumOfDrinks += 1
     messageCosmo ='''cosmo\n'''
     text.insert('end', messageCosmo)
     return
@@ -256,6 +267,8 @@ def negroni(amnts):
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     messageNegroni ='''negroni\n'''
     text.insert('end', messageNegroni)
     return
@@ -266,6 +279,8 @@ def russian(amnts):
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     global profit
     profit += price
     messageRuss ='''black russian\n'''
@@ -284,6 +299,8 @@ def liit(amnts):
     amnts[9] -= 2  # half shots cointreau
     amnts[11] -= 2  # half shots syrup
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
@@ -297,6 +314,8 @@ def cuba(amnts):
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
@@ -311,6 +330,8 @@ def john(amnts):
     amnts[11] -= 1 # half shots syrup
     amnts[12] -= 1 # full shots tonic
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     global profit
     profit += price
     messageJohn ='''john collins\n'''
@@ -323,6 +344,8 @@ def dry(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
     amnts[15] -= 1 # 1 full serving ice
+    global NumOfDrinks
+    NumOfDrinks += 1
     global profit
     profit += price
     messageDry ='''dry martini\n'''
