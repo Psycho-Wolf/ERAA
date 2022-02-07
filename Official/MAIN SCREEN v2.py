@@ -139,35 +139,33 @@ def TableOrder():
         var.set(5)
     return
 
-
-    
 def cosmo():
-    messageCosmo ='''cosmo\n'''
-    text_box.insert('end', messageCosmo)
+    messageCosmo ="cosmo\n"
+    text.insert('end', messageCosmo)
     return
 def negroni():
-    messageNegroni ='''negroni\n'''
-    text_box.insert('end', messageNegroni)
+    messageNegroni ="negroni\n"
+    text.insert('end', messageNegroni)
     return
 def russian():
-    messageRuss ='''black russian\n'''
-    text_box.insert('end', messageRuss)
+    messageRuss ="black russian\n"
+    text.insert('end', messageRuss)
     return
 def liit():
-    messageLiit ='''long island iced tea\n'''
-    text_box.insert('end', messageLiit)
+    messageLiit ="long island iced tea\n"
+    text.insert('end', messageLiit)
     return
 def cuba():
-    messageCuba ='''cuba libre\n'''
-    text_box.insert('end', messageCuba)
+    messageCuba ="cuba libre\n"
+    text.insert('end', messageCuba)
     return
 def john():
-    messageJohn ='''john collins\n'''
-    text_box.insert('end', messageJohn)
+    messageJohn ="john collins\n"
+    text.insert('end', messageJohn)
     return
 def dry():
-    messageDry ='''dry martini\n'''
-    text_box.insert('end', messageDry)
+    messageDry ="dry martini\n"
+    text.insert('end', messageDry)
     return
 
 # MAIN SCREEN #
@@ -180,7 +178,6 @@ labelText3.set('''Welcome to Embry-Riddles Autonous Automaton''')
 label3 = Label(root, textvariable=labelText3, height=4,width=45,bg='#CDC8B1',font=('Arial',16,'bold')).place(x=460,y=100)
 
 labelOrder = Label(root,text=" ")
-
 
 # TABLES #
 var=IntVar()
@@ -203,7 +200,6 @@ button8 = Button(root, text="ORDER",                    width=20,height=4, comma
 button9 = Button(root, text="Check Out",                width=30,height=2, command=CheckOut,bg='#FF4040').place(x=640,y=600)
 button10 = Button(root, text="Table Order",             width=30,height=2, command=TableOrder).place(x=640,y=650)
 
-
 # ORDER #
 labelText4 = StringVar()
 labelText4.set('''Order:''')
@@ -219,7 +215,7 @@ text.place(x=8,y=280)
 labelText2 = StringVar()
 labelText2.set("Staff Only:")
 label2 = Label(root, textvariable=labelText2, height=1).place(x=5,y=705)
-button8 = Button(root, text="Settings",              width=20, command=settings).place(x=2,y=725)
+button8 = Button(root, text="Settings", width=20, command=settings).place(x=2,y=725)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
 
 
