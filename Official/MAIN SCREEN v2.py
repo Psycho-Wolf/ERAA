@@ -42,40 +42,58 @@ def ORDER():
     table = var.get()
     list = text.get('1.0','end')
     if table == 1:
+        # Removing the last line to get ride of the profit
+        print list
+        
+        textfile = open("linDel.txt","r")
+        t = textfile.read()
+        textfile.close()
+        m=t.split("\n")
+        s="\n".join(m[:-1])
+        textfile = open("linDel.txt","w")
+        for i in range(len(s)):
+            textfile.write(s[i])
+        textfile.close()
+
         textfile = open("tab1.txt","a")
+        a = textfile.write(str(Stonks) + '\n')
         a = textfile.write(list)
-        a = textfile.write(str(Stonks))
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
+        Stonks = 0
     elif table == 2:
         textfile = open("tab2.txt","a")
         a = textfile.write(list)
-        a = textfile.write(str(Stonks))
+        a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
+        Stonks = 0
     elif table == 3:
         textfile = open("tab3.txt","a")
         a = textfile.write(list)
-        a = textfile.write(str(Stonks))
+        a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
+        Stonks = 0
     elif table == 4:
         textfile = open("tab4.txt","a")
         a = textfile.write(list)
-        a = textfile.write(str(Stonks))
+        a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
+        Stonks = 0
     else:
         textfile = open("tabNA.txt","a")
         a = textfile.write(list)
-        a = textfile.write(str(Stonks))
+        a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
+        Stonks = 0
     return
 
 def CheckOut(amnts):
@@ -83,21 +101,6 @@ def CheckOut(amnts):
     global profit
     print profit   #FOR TESTING DELETE IN FINAL VERSION
     profit = 0
-    var.set(5)
-    list = text_box.get('1.0','end')
-    textfile = open("tab.txt","a")
-    a = textfile.write(list)
-    textfile.close()
-    text_box.delete(1.0, 'end')
-    file = open("tab.txt","r")
-    lines = file.readlines()
-    file.close()
-    file = open("tab.txt","w")
-    for line in lines:
-        file.write(" ")
-    file.close()
-    textfile = open("tab.txt","r")
-    order = textfile.read()
     global labelOrder
     table = var.get()
     if table == 1:
