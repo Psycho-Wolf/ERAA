@@ -17,9 +17,11 @@ HomePos()
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
 global t1P, t2P, t3P, t4P, t0P
+t1P = 0; t2P = 0; t3P = 0; t4P = 0; t0P = 0
 global drinkNames # An arracy that stores all ingrendient names
 global NumOfDrinks # Total number of drinks ordered across all tables
 global tableDrinks # Number of drinks in an order
+tableDrinks = 0
 NumOfDrinks = 0
 global queue    # a numeric array that stores the numbers corespoding to every drink in an order
 queue = []      # Fn buildDrinks() shows which number corresponds to each drink
@@ -80,7 +82,7 @@ def ORDER():
         # Removing the last line to get ride of the profit
         print list
 
-        t1P += stonks
+        t1P += Stonks
         textfile = open("linDel.txt","r")
         t = textfile.read()
         textfile.close()
@@ -98,7 +100,7 @@ def ORDER():
         labelOrder.destroy()
         var.set(5)
     elif table == 2:
-        t2P += stonks
+        t2P += Stonks
         textfile = open("tab2.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
@@ -106,7 +108,7 @@ def ORDER():
         labelOrder.destroy()
         var.set(5)
     elif table == 3:
-        t3P += stonks
+        t3P += Stonks
         textfile = open("tab3.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
@@ -114,7 +116,7 @@ def ORDER():
         labelOrder.destroy()
         var.set(5)
     elif table == 4:
-        t4P += stonks
+        t4P += Stonks
         textfile = open("tab4.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
@@ -122,7 +124,7 @@ def ORDER():
         labelOrder.destroy()
         var.set(5)
     else:
-        t0P += stonks
+        t0P += Stonks
         textfile = open("tabNA.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
