@@ -1,6 +1,6 @@
             # -*- coding: cp1252 -*-
-#import serial #Dr. Isenbergs' python code to demo the FXYx robot.
-#import math
+import serial #Dr. Isenbergs' python code to demo the FXYx robot.
+import math
 import time
 from Tkinter import *
 import os
@@ -10,12 +10,18 @@ from FUNCTIONS import *
 import pickle
 #from FXYx import *
 
+servosOn()
+HomePos()
+
 # Profits stores the gross profit of all drinks ordered
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
 global drinkNames
 global NumOfDrinks
 NumOfDrinks = 0
+global queue
+queue = []
+
 drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
 amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
 
@@ -25,7 +31,7 @@ amnts = pickle.load(fAmnts)
 fAmnts.close()
 
 print "amounts of every: " + str(amnts)
-profit = 0 # ensures starting profit for the run is set to 
+profit = 0 # ensures starting profit for the run is set to
 price = 11
 
 def close():
@@ -35,16 +41,37 @@ def close():
     root.destroy()
     return
 
+def buildDrinks():
+    global queue
+    for drnkNum in queue:
+        if drnkNum == 1:
+            cosmoBuild()
+        elif drnkNum == 2:
+            negroniBuild()
+        elif drnkNum == 3:
+            russianBuild()
+        elif drnkNum == 4:
+            liitBuild()
+        elif drnkNum == 5:
+            cubaBuild()
+        elif drnkNum == 6:
+            johnBuild()
+        elif drnkNum == 7:
+            dryBuild()
+    return
+
+
 def ORDER():
     global labelOrder
     global NumOfDrinks
+    global queue
     Stonks = NumOfDrinks*11
     table = var.get()
     list = text.get('1.0','end')
     if table == 1:
         # Removing the last line to get ride of the profit
         print list
-        
+
         textfile = open("linDel.txt","r")
         t = textfile.read()
         textfile.close()
@@ -94,6 +121,8 @@ def ORDER():
         labelOrder.destroy()
         var.set(5)
         Stonks = 0
+    buildDrinks()
+    queue = []
     return
 
 def CheckOut(amnts):
@@ -189,7 +218,7 @@ def TableOrder():
         labelOrder.place(x=1200,y=400)
         var.set(5)
     return
-    
+
 def Stonks(amnts):
     global profit
     timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -197,7 +226,7 @@ def Stonks(amnts):
     stonks.write("Vodka: " + str(amnts[0]) + '\n')
     stonks.write("Gin: " + str(amnts[1]) + '\n')
     stonks.write("Rum: " + str(amnts[2]) + '\n')
-    stonks.write("Tequila: " + str(amnts[3]) + '\n')
+    stonks.write("Teqprofituila: " + str(amnts[3]) + '\n')
     stonks.write("Cranberry Juice: " + str(amnts[4]) + '\n')
     stonks.write("Lime Juice: " + str(amnts[5]) + '\n')
     stonks.write("Lemon Juice: " + str(amnts[6]) + '\n')
@@ -232,8 +261,8 @@ def errChk(index, amnts):
 
 # This function takes the amnts array as input and uses it to determine if any of the ingredient
 # are low in volume (definied as having 2 or less units of ingredient)
-# if there are any low ingredients the error display function is called with the indicies of each 
-# drink in the amnts array being passed to it 
+# if there are any low ingredients the error display function is called with the indicies of each
+# drink in the amnts array being passed to it
 def VolCheck(amnts):
     index = [] # Initializes an empty index array to be filled every time function is called
     flag = 0
@@ -248,8 +277,9 @@ def VolCheck(amnts):
 
 # Button called function for the Cosmopolitan
 def cosmo(amnts):
+    global queue
+    queue.append(1)
     VolCheck(amnts)
-    cosmoBuild()
     global profit
     profit += price
     amnts[0] -= 1 # full shot vodka
@@ -264,6 +294,8 @@ def cosmo(amnts):
 
 # Button called function for the Negroni
 def negroni(amnts):
+    global queue
+    queue.append(2)
     VolCheck(amnts)
     global profit
     profit += price
@@ -279,6 +311,8 @@ def negroni(amnts):
 
 # Button called function for the Black Russian
 def russian(amnts):
+    global queue
+    queue.append(3)
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
@@ -293,6 +327,8 @@ def russian(amnts):
 
 # Button called function for the Long Island Iced Tea
 def liit(amnts):
+    global queue
+    queue.append(4)
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[1] -= 1  # full shots gin
@@ -313,6 +349,8 @@ def liit(amnts):
 
 # Button called function for the Cuba Libre
 def cuba(amnts):
+    global queue
+    queue.append(5)
     VolCheck(amnts)
     amnts[2] -= 1 # full shots rum
     amnts[5] -= 1 # half shots lime
@@ -328,6 +366,8 @@ def cuba(amnts):
 
 # Button called function for the John Collins
 def john(amnts):
+    global queue
+    queue.append(6)
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[6] -= 2  # half shots lemon
@@ -344,6 +384,8 @@ def john(amnts):
 
 # Button called function for the Dry Vermouth
 def dry(amnts):
+    global queue
+    queue.append(7)
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
@@ -405,7 +447,7 @@ button8 = Button(root, text="Settings",              width=20, command=settings)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
 
 # LOGO #
-photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
+photo = Image.open('/home/robotics/Desktop/ERAA/ERAA/Official/LogoNoBack.png' )
 resize_image = photo.resize((384,216))
 img=ImageTk.PhotoImage(resize_image)
 label = Label(root,image = img)
