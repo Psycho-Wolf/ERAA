@@ -16,11 +16,13 @@ HomePos()
 # Profits stores the gross profit of all drinks ordered
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
 global profit, amnts
-global drinkNames
-global NumOfDrinks
+global t1P, t2P, t3P, t4P, t0P
+global drinkNames # An arracy that stores all ingrendient names
+global NumOfDrinks # Total number of drinks ordered across all tables
+global tableDrinks # Number of drinks in an order
 NumOfDrinks = 0
-global queue
-queue = []
+global queue    # a numeric array that stores the numbers corespoding to every drink in an order
+queue = []      # Fn buildDrinks() shows which number corresponds to each drink
 
 drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
 amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
@@ -41,6 +43,9 @@ def close():
     root.destroy()
     return
 
+# This function itterates through the queue array, building whatever drink corresponds to the number in
+# a position in the array. Due to the funciton needing to itterate through every value of an array the POS
+# system will not be usable until every drink has been made
 def buildDrinks():
     global queue
     for drnkNum in queue:
@@ -64,14 +69,18 @@ def buildDrinks():
 def ORDER():
     global labelOrder
     global NumOfDrinks
+    global tableDrinks
     global queue
-    Stonks = NumOfDrinks*11
+    global t1P, t2P, t3P, t4P, t0P
+    NumOfDrinks += tableDrinks
+    Stonks = tableDrinks*11
     table = var.get()
     list = text.get('1.0','end')
     if table == 1:
         # Removing the last line to get ride of the profit
         print list
 
+        t1P += stonks
         textfile = open("linDel.txt","r")
         t = textfile.read()
         textfile.close()
@@ -88,39 +97,40 @@ def ORDER():
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 2:
+        t2P += stonks
         textfile = open("tab2.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 3:
+        t3P += stonks
         textfile = open("tab3.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 4:
+        t4P += stonks
         textfile = open("tab4.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     else:
+        t0P += stonks
         textfile = open("tabNA.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
+    tableDrinks = 0
+    Stonks = 0
     buildDrinks()
     queue = []
     return
@@ -142,6 +152,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t1P = 0
     elif table == 2:
         textfile = open("tab2.txt", "r")
         lines = textfile.readlines()
@@ -152,6 +163,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t2P = 0
     elif table == 3:
         textfile = open("tab3.txt", "r")
         lines = textfile.readlines()
@@ -162,6 +174,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t3P = 0
     elif table == 4:
         textfile = open("tab4.txt", "r")
         lines = textfile.readlines()
@@ -171,6 +184,7 @@ def CheckOut(amnts):
             textfile.write("")
         textfile.close()
         labelOrder.destroy()
+        t4P = 0
     else:
         textfile = open("tabNA.txt", "r")
         lines = textfile.readlines()
@@ -181,6 +195,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t0P = 0
     return
 
 def TableOrder():
@@ -286,8 +301,8 @@ def cosmo(amnts):
     amnts[4] -= 2 # half shots cran
     amnts[5] -= 1 # half shot lime
     amnts[9] -= 1 # half shot cointreau
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     messageCosmo ='''cosmo\n'''
     text.insert('end', messageCosmo)
     return
@@ -303,8 +318,8 @@ def negroni(amnts):
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     messageNegroni ='''negroni\n'''
     text.insert('end', messageNegroni)
     return
@@ -317,8 +332,8 @@ def russian(amnts):
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageRuss ='''black russian\n'''
@@ -339,8 +354,8 @@ def liit(amnts):
     amnts[9] -= 2  # half shots cointreau
     amnts[11] -= 2  # half shots syrup
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
@@ -356,8 +371,8 @@ def cuba(amnts):
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
@@ -374,8 +389,8 @@ def john(amnts):
     amnts[11] -= 1 # half shots syrup
     amnts[12] -= 1 # full shots tonic
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageJohn ='''john collins\n'''
@@ -390,8 +405,8 @@ def dry(amnts):
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageDry ='''dry martini\n'''
