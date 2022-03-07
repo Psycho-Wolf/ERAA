@@ -249,6 +249,7 @@ def VolCheck(amnts):
 # Button called function for the Cosmopolitan
 def cosmo(amnts):
     VolCheck(amnts)
+    cosmoBuild()
     global profit
     profit += price
     amnts[0] -= 1 # full shot vodka

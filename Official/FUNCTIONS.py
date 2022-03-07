@@ -9,59 +9,49 @@ from PIL import ImageTk, Image
 import tkMessageBox
 #from FXYx import *
 
-def cosmo():
-    print("making cosmopolitan")
-#    messageCosmo ='''cosmo'''
-#    text_box.insert('end', messageCosmo)
-
-#    time.sleep(5)
-#    point(540,300,80)
-#    time.sleep(5)
-#    origin()
+def cosmoBuild():
+    time.sleep(5)
+    point(540,300,80)
+    time.sleep(5)
+    origin()
     return
 
-def negroni():
-    print("making negroni")
+def negroniBuild():
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
 #    origin()
     return
 
-def russian():
-    print("making black russian")
+def russianBuild():
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
 #    origin()
     return
 
-def liit():
-    print("making long island iced tea")
+def liitBuild():
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
 #    origin()
     return
 
-def cuba():
-    print("making cuba libre")
+def cubaBuild():
 #    time.sleep(5)
 #    point(540,300,80)
 #    time.sleep(5)
 #    origin()
     return
 
-def john():
-    print("making john collins")
+def johnBuild():
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
 #    origin()
     return
 
-def dry():
-    print("making dry martini")
+def dryBuild():
 #    time.sleep(5)
 #    point(100,100,80)
 #    time.sleep(5)
