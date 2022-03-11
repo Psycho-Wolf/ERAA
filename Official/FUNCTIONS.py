@@ -7,6 +7,8 @@ from Tkinter import *
 import os
 from PIL import ImageTk, Image
 import tkMessageBox
+import cPickle as pickle
+import globals
 #from FXYx import *
 
 
@@ -23,6 +25,12 @@ def servosOn():  #turn on all servos
 	ser.write("@SRVO "+str(1)+chr(13)+chr(10))
 	rec=ser.read(4)
 	print "Servo On Reponse=",rec	#can only return ok
+	return
+
+def servosOff():  #turn off all servos
+	ser.write("@SRVO "+str(0)+chr(13)+chr(10))
+	rec=ser.read(4)
+	print "Servo Off Reponse=",rec	#can only return ok
 	return
 
 def point(x,y,speed):
@@ -83,53 +91,64 @@ def origin():
         print rec
     return;
 
+def ingrSetup():
+	amnts = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+	f = open('ingrAmnt.p', 'wb')
+	pickle.dump(amnts, f, -1)
+	f.close()
+
+	fAmnts = open('ingrAmnt.p', 'rb')
+	test = pickle.load(fAmnts)
+	fAmnts.close()
+	print test
+	return
 
 def cosmoBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(100,100,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def negroniBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(100,200,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def russianBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(200,100,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def liitBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(200,200,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def cubaBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(200,300,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def johnBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(300,200,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
 def dryBuild():
-    time.sleep(1)
+    #time.sleep(1)
     point(300,300,80)
-    time.sleep(1)
+    #time.sleep(1)
     HomePos()
     return
 
@@ -162,8 +181,9 @@ def settings():
         return
 
     def resolvedError():
+        ingrSetup()
         print("errors are fixed")
-        #errorLabel= label(text="No errors present").pack()
+	    #errorLabel= label(text="No errors present").pack()
         return
 
     def closeSettings():
