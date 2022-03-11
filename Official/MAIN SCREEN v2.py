@@ -7,7 +7,7 @@ import os
 from PIL import ImageTk, Image
 import tkMessageBox
 from FUNCTIONS import *
-import pickle
+import globals
 #from FXYx import *
 
 servosOn()
@@ -15,6 +15,7 @@ HomePos()
 
 # Profits stores the gross profit of all drinks ordered
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
+
 global profit, amnts
 global t1P, t2P, t3P, t4P, t0P
 t1P = 0; t2P = 0; t3P = 0; t4P = 0; t0P = 0
