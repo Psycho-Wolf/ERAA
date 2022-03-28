@@ -19,8 +19,6 @@ void display(uint8_t intDist, uint8_t decOne, uint8_t decTwo);
 int main(void){
 	
 	DDRB = 0x02;
-	DDRD = 0xFF;
-	DDRC = 0x0F;
 	
 	TCCR1B |= (1 << WGM12); // Enable CTC Mode
 	TCCR1B |= (1 << ICES1); // Input capture edge select
@@ -28,8 +26,8 @@ int main(void){
 	TCCR1B |= (1 << CS11) | (1 << CS10);	//Start Timer, Prescaler = 64
 	// Input capture edge select,  Output compare 1A and 1B
 	TIMSK1 |= (1 << ICIE1) | (1 << OCIE1A) | (1 << OCIE1B);
-	OCR1A = 14999;
-	OCR1B = 8;
+	OCR1A = 15008; //32767
+	OCR1B = 8; // 8
 	sei();
 	
 	uint16_t count;
@@ -39,53 +37,12 @@ int main(void){
 			count = endCount - startCount;
 			TCCR1B |= (1 << ICES1);
 			if(count > 223){
-				
+				PORTC = ~PORTC; // flips pin c
 			}
 		}
-		
-		if(calculate){
-			calculate = 0;
-			count = endCount - startCount;
-			millimeters = (count >> 8)*176;
-			TCCR1B |= (1 << ICES1);
-			
-			
-			//millimeters = millisec*SOS;
-			countDist = 0;
-			while(millimeters > 999){
-				millimeters -= 1000;
-				countDist++;
-			}
-			intDist = countDist;
-			countDist = 0;
-
-			// dist calc
-			while(millimeters > 99){
-				millimeters -= 100;
-				countDist++;
-			}
-			decOne = countDist;
-			countDist = 0;
-
-			while(millimeters > 9){
-				millimeters -= 10;
-				countDist++;
-			}
-			decTwo = countDist;
-			
-		}
-
-		display(intDist, decOne, decTwo);
-	
 	}
 	
 }
-
-
-void display(){
-
-}
-
 
 ISR(TIMER1_CAPT_vect) {
 	static uint8_t edgeCatch = 1;				//1 => First rising edge
