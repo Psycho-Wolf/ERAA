@@ -1,21 +1,34 @@
-            # -*- coding: cp1252 -*-
-#import serial #Dr. Isenbergs' python code to demo the FXYx robot.
-#import math
+# This is the main control script of Benny
+import serial #Dr. Isenbergs' python code to demo the FXYx robot.
+import math
 import time
 from Tkinter import *
 import os
 from PIL import ImageTk, Image
 import tkMessageBox
 from FUNCTIONS import *
-import pickle
+#import globals
 #from FXYx import *
+from ingPnts import *
+
+
+servosOn() # Turns the servo motors of the FXYx
+HomePos() # Moves the FXYx to the home position
 
 # Profits stores the gross profit of all drinks ordered
 # amnts is a 16 element array that stores the amnts of each ingredient left in the system
+# tnP, where n = 0 to 4, are the variables storing the indiviual profits of the tables
 global profit, amnts
-global drinkNames
-global NumOfDrinks
+global t1P, t2P, t3P, t4P, t0P
+t1P = 0; t2P = 0; t3P = 0; t4P = 0; t0P = 0
+global drinkNames # An arracy that stores all ingrendient names
+global NumOfDrinks # Total number of drinks ordered across all tables
+global tableDrinks # Number of drinks in an order
+tableDrinks = 0
 NumOfDrinks = 0
+global queue    # a numeric array that stores the numbers corespoding to every drink in an order
+queue = []      # Fn buildDrinks() shows which number corresponds to each drink
+
 drinkNames = ['Vodka', 'Gin', 'Rum', 'Tequila', 'Cranberry Juice', 'Lime Juice', 'Lemon Juice', 'Coca Cola', 'Campari', 'Cointreau', 'Grenadine', 'Simple Syrup', 'Tonic Water', 'Dry Veroumth', 'Kahlua', 'Ice']
 amnts = [1, 20, 20, 1, 1, 2, 20, 20, 20, 1, 20, 3, 20, 1, 20, 20]
 
@@ -25,7 +38,7 @@ amnts = pickle.load(fAmnts)
 fAmnts.close()
 
 print "amounts of every: " + str(amnts)
-profit = 0 # ensures starting profit for the run is set to 
+profit = 0 # ensures starting profit for the run is set to
 price = 11
 
 def close():
@@ -35,16 +48,44 @@ def close():
     root.destroy()
     return
 
+# This function itterates through the queue array, building whatever drink corresponds to the number in
+# a position in the array. Due to the funciton needing to itterate through every value of an array the POS
+# system will not be usable until every drink has been made
+def buildDrinks():
+    global queue
+    for drnkNum in queue:
+        if drnkNum == 1:
+            cosmoBuild()
+        elif drnkNum == 2:
+            negroniBuild()
+        elif drnkNum == 3:
+            russianBuild()
+        elif drnkNum == 4:
+            liitBuild()
+        elif drnkNum == 5:
+            cubaBuild()
+        elif drnkNum == 6:
+            johnBuild()
+        elif drnkNum == 7:
+            dryBuild()
+    return
+
+
 def ORDER():
     global labelOrder
     global NumOfDrinks
-    Stonks = NumOfDrinks*11
+    global tableDrinks
+    global queue
+    global t1P, t2P, t3P, t4P, t0P
+    NumOfDrinks += tableDrinks
+    Stonks = tableDrinks*11
     table = var.get()
     list = text.get('1.0','end')
     if table == 1:
         # Removing the last line to get ride of the profit
         print list
-        
+
+        t1P += Stonks
         textfile = open("linDel.txt","r")
         t = textfile.read()
         textfile.close()
@@ -61,39 +102,42 @@ def ORDER():
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 2:
+        t2P += Stonks
         textfile = open("tab2.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 3:
+        t3P += Stonks
         textfile = open("tab3.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     elif table == 4:
+        t4P += Stonks
         textfile = open("tab4.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
     else:
+        t0P += Stonks
         textfile = open("tabNA.txt","a")
         a = textfile.write(list)
         a = textfile.write(str(Stonks) + '\n')
         text.delete("1.0","end")
         labelOrder.destroy()
         var.set(5)
-        Stonks = 0
+    tableDrinks = 0
+    Stonks = 0
+    buildDrinks()
+    queue = []
     return
 
 def CheckOut(amnts):
@@ -113,6 +157,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t1P = 0
     elif table == 2:
         textfile = open("tab2.txt", "r")
         lines = textfile.readlines()
@@ -123,6 +168,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t2P = 0
     elif table == 3:
         textfile = open("tab3.txt", "r")
         lines = textfile.readlines()
@@ -133,6 +179,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t3P = 0
     elif table == 4:
         textfile = open("tab4.txt", "r")
         lines = textfile.readlines()
@@ -142,6 +189,7 @@ def CheckOut(amnts):
             textfile.write("")
         textfile.close()
         labelOrder.destroy()
+        t4P = 0
     else:
         textfile = open("tabNA.txt", "r")
         lines = textfile.readlines()
@@ -152,6 +200,7 @@ def CheckOut(amnts):
         textfile.close()
         labelOrder.destroy()
         var.set(5)
+        t0P = 0
     return
 
 def TableOrder():
@@ -189,7 +238,7 @@ def TableOrder():
         labelOrder.place(x=1200,y=400)
         var.set(5)
     return
-    
+
 def Stonks(amnts):
     global profit
     timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -197,7 +246,7 @@ def Stonks(amnts):
     stonks.write("Vodka: " + str(amnts[0]) + '\n')
     stonks.write("Gin: " + str(amnts[1]) + '\n')
     stonks.write("Rum: " + str(amnts[2]) + '\n')
-    stonks.write("Tequila: " + str(amnts[3]) + '\n')
+    stonks.write("Teqprofituila: " + str(amnts[3]) + '\n')
     stonks.write("Cranberry Juice: " + str(amnts[4]) + '\n')
     stonks.write("Lime Juice: " + str(amnts[5]) + '\n')
     stonks.write("Lemon Juice: " + str(amnts[6]) + '\n')
@@ -232,8 +281,8 @@ def errChk(index, amnts):
 
 # This function takes the amnts array as input and uses it to determine if any of the ingredient
 # are low in volume (definied as having 2 or less units of ingredient)
-# if there are any low ingredients the error display function is called with the indicies of each 
-# drink in the amnts array being passed to it 
+# if there are any low ingredients the error display function is called with the indicies of each
+# drink in the amnts array being passed to it
 def VolCheck(amnts):
     index = [] # Initializes an empty index array to be filled every time function is called
     flag = 0
@@ -247,23 +296,26 @@ def VolCheck(amnts):
 
 
 # Button called function for the Cosmopolitan
-def cosmo(amnts):
+def cosmo(amnts): # POINTS DEFINED
+    global queue
+    queue.append(1)
     VolCheck(amnts)
-    cosmoBuild()
     global profit
     profit += price
     amnts[0] -= 1 # full shot vodka
     amnts[4] -= 2 # half shots cran
     amnts[5] -= 1 # half shot lime
     amnts[9] -= 1 # half shot cointreau
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     messageCosmo ='''cosmo\n'''
     text.insert('end', messageCosmo)
     return
 
 # Button called function for the Negroni
-def negroni(amnts):
+def negroni(amnts): # POINTS DEFINED
+    global queue
+    queue.append(2)
     VolCheck(amnts)
     global profit
     profit += price
@@ -271,20 +323,22 @@ def negroni(amnts):
     amnts[8] -= 1  # full shots campari
     amnts[13] -= 2 # half shots vermouth
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     messageNegroni ='''negroni\n'''
     text.insert('end', messageNegroni)
     return
 
 # Button called function for the Black Russian
-def russian(amnts):
+def russian(amnts): # POINTS DEFINED
+    global queue
+    queue.append(3)
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[14] -= 1 # half shots kahlua
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageRuss ='''black russian\n'''
@@ -292,7 +346,9 @@ def russian(amnts):
     return
 
 # Button called function for the Long Island Iced Tea
-def liit(amnts):
+def liit(amnts): # POINTS DEFINED
+    global queue
+    queue.append(4)
     VolCheck(amnts)
     amnts[0] -= 1  # full shots vodka
     amnts[1] -= 1  # full shots gin
@@ -303,8 +359,8 @@ def liit(amnts):
     amnts[9] -= 2  # half shots cointreau
     amnts[11] -= 2  # half shots syrup
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageLiit ='''long island iced tea\n'''
@@ -312,14 +368,16 @@ def liit(amnts):
     return
 
 # Button called function for the Cuba Libre
-def cuba(amnts):
+def cuba(amnts): # POINTS DEFINED
+    global queue
+    queue.append(5)
     VolCheck(amnts)
     amnts[2] -= 1 # full shots rum
     amnts[5] -= 1 # half shots lime
     amnts[7] -= 3 # full shots coke
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageCuba ='''cuba libre\n'''
@@ -327,29 +385,33 @@ def cuba(amnts):
     return
 
 # Button called function for the John Collins
-def john(amnts):
+def john(amnts): # POINTS DEFINED
+    global queue
+    queue.append(6)
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[6] -= 2  # half shots lemon
     amnts[11] -= 1 # half shots syrup
     amnts[12] -= 1 # full shots tonic
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageJohn ='''john collins\n'''
     text.insert('end', messageJohn)
     return
 
-# Button called function for the Dry Vermouth
-def dry(amnts):
+# Button called function for the Dry Martini
+def dry(amnts): # POINTS DEFINED
+    global queue
+    queue.append(7)
     VolCheck(amnts)
     amnts[1] -= 1  # full shots gin
     amnts[13] -= 1 # half shot vermouth
     amnts[15] -= 1 # 1 full serving ice
-    global NumOfDrinks
-    NumOfDrinks += 1
+    global tableDrinks
+    tableDrinks += 1
     global profit
     profit += price
     messageDry ='''dry martini\n'''
@@ -405,7 +467,7 @@ button8 = Button(root, text="Settings",              width=20, command=settings)
 button9Close = Button(root,text="Close",width=20,command=close).place(x=1200,y=10)
 
 # LOGO #
-photo = Image.open('C:\GitHub\ERAA\Official\LogoNoBack.png' )
+photo = Image.open('/home/robotics/Desktop/ERAA/ERAA/Official/LogoNoBack.png' )
 resize_image = photo.resize((384,216))
 img=ImageTk.PhotoImage(resize_image)
 label = Label(root,image = img)

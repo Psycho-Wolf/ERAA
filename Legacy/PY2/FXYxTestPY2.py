@@ -2,6 +2,7 @@ import serial #Dr. Isenbergs' python code to demo the FXYx robot.
 import time
 import math
 
+
 def servosOn():  #turn on all servos
 	ser.write("@SRVO "+str(1)+chr(13)+chr(10))
 	rec=ser.read(4)
@@ -52,7 +53,7 @@ def origin():
             i=i+1
         print rec
     return;
-        
+
 ser=serial.Serial('/dev/ttyS0')
 ser.baudrate=9600
 ser.parity=serial.PARITY_ODD

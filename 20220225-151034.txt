@@ -1,0 +1,18 @@
+Vodka: 12
+Gin: 11
+Rum: 5
+Tequila: 14
+Cranberry Juice: 18
+Lime Juice: 10
+Lemon Juice: 20
+Coca Cola: 5
+Campari: 8
+Cointreau: 8
+Grenadine: 20
+Simple Syrup: 18
+Tonic Water: 12
+Dry Vermouth: 14
+Kahlua: 19
+Ice: 19
+
+Gross Profit: $33
